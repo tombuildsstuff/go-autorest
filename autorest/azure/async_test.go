@@ -750,9 +750,10 @@ func TestFuture_MarshallingWithError(t *testing.T) {
 	sender := mocks.NewSender()
 	sender.AppendAndRepeatResponse(r2, 2)
 	sender.AppendResponse(r3)
+	pollingDuration := autorest.DefaultPollingDuration
 	client := autorest.Client{
 		PollingDelay:    1 * time.Second,
-		PollingDuration: autorest.DefaultPollingDuration,
+		PollingDuration: &pollingDuration,
 		RetryAttempts:   autorest.DefaultRetryAttempts,
 		RetryDuration:   1 * time.Second,
 		Sender:          sender,
@@ -805,9 +806,10 @@ func TestFuture_WaitForCompletion(t *testing.T) {
 	sender := mocks.NewSender()
 	sender.AppendAndRepeatResponse(r2, 2)
 	sender.AppendResponse(r3)
+	pollingDuration := autorest.DefaultPollingDuration
 	client := autorest.Client{
 		PollingDelay:    1 * time.Second,
-		PollingDuration: autorest.DefaultPollingDuration,
+		PollingDuration: &pollingDuration,
 		RetryAttempts:   autorest.DefaultRetryAttempts,
 		RetryDuration:   1 * time.Second,
 		Sender:          sender,
@@ -838,9 +840,10 @@ func TestFuture_WaitForCompletionRef(t *testing.T) {
 	sender := mocks.NewSender()
 	sender.AppendAndRepeatResponse(r2, 2)
 	sender.AppendResponse(r3)
+	pollingDuration := autorest.DefaultPollingDuration
 	client := autorest.Client{
 		PollingDelay:    1 * time.Second,
-		PollingDuration: autorest.DefaultPollingDuration,
+		PollingDuration: &pollingDuration,
 		RetryAttempts:   autorest.DefaultRetryAttempts,
 		RetryDuration:   1 * time.Second,
 		Sender:          sender,
@@ -875,9 +878,10 @@ func TestFuture_WaitForCompletionTimedOut(t *testing.T) {
 		t.Fatalf("failed to create future: %v", err)
 	}
 
+	pollingDuration := 2 * time.Second
 	client := autorest.Client{
 		PollingDelay:    autorest.DefaultPollingDelay,
-		PollingDuration: 2 * time.Second,
+		PollingDuration: &pollingDuration,
 		RetryAttempts:   autorest.DefaultRetryAttempts,
 		RetryDuration:   1 * time.Second,
 		Sender:          sender,
@@ -901,9 +905,10 @@ func TestFuture_WaitForCompletionRetriesExceeded(t *testing.T) {
 		t.Fatalf("failed to create future: %v", err)
 	}
 
+	pollingDuration := autorest.DefaultPollingDuration
 	client := autorest.Client{
 		PollingDelay:    autorest.DefaultPollingDelay,
-		PollingDuration: autorest.DefaultPollingDuration,
+		PollingDuration: &pollingDuration,
 		RetryAttempts:   autorest.DefaultRetryAttempts,
 		RetryDuration:   100 * time.Millisecond,
 		Sender:          sender,
@@ -926,9 +931,10 @@ func TestFuture_WaitForCompletionCancelled(t *testing.T) {
 		t.Fatalf("failed to create future: %v", err)
 	}
 
+	pollingDuration := autorest.DefaultPollingDuration
 	client := autorest.Client{
 		PollingDelay:    autorest.DefaultPollingDelay,
-		PollingDuration: autorest.DefaultPollingDuration,
+		PollingDuration: &pollingDuration,
 		RetryAttempts:   autorest.DefaultRetryAttempts,
 		RetryDuration:   autorest.DefaultRetryDuration,
 		Sender:          sender,
