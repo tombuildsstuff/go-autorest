@@ -124,6 +124,12 @@ func buildSharedKey(accName string, accKey []byte, req *http.Request, keyType Sh
 		date := time.Now().UTC().Format(http.TimeFormat)
 		req.Header.Set(headerXMSDate, date)
 	}
+
+	// ensure a content length is set if appropriate
+	if req.Header.Get(headerContentLength) == "" {
+		req.Header.Set("Content-Length", fmt.Sprintf("%d", int(req.ContentLength)))
+	}
+
 	canString, err := buildCanonicalizedString(req.Method, req.Header, canRes, keyType)
 	if err != nil {
 		return "", err
